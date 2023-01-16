@@ -9,7 +9,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import { AppModule } from './app.module';
-import { HttpExceptionFilter, QueryFailedFilter } from './filters';
+import { HttpExceptionFilter } from './filters';
 import { TimeoutInterceptor, WrapResponseInterceptor } from './interceptors';
 import { setupSwagger } from './setup-swagger';
 import { ApiConfigService } from './shared/services/api-config.service';
@@ -33,7 +33,7 @@ export async function bootstrap(): Promise<NestExpressApplication> {
     app.use(morgan('combined'));
     app.enableVersioning();
 
-    app.useGlobalFilters(new HttpExceptionFilter(), new QueryFailedFilter());
+    app.useGlobalFilters(new HttpExceptionFilter());
 
     app.useGlobalInterceptors(new WrapResponseInterceptor(), new TimeoutInterceptor());
 
