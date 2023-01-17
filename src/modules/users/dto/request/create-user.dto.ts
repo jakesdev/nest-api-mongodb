@@ -2,8 +2,8 @@ import { StringField } from '../../../../decorators';
 
 export class CreateArticleDto {
     @StringField()
-    title: string;
+    email: string;
 
     @StringField()
-    description: string;
+    password: string;
 }

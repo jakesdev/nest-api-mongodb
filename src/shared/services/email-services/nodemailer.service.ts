@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 import type { EmailTemplateType } from '../../../constants';
 import type { IEmailParams } from '../../../interfaces/email-builder.interface';
 import { ApiConfigService } from '../api-config.service';
-import { EmailBuilder } from './email.builder';
+import { EmailBuilder } from './builder/email.builder';
 
 @Injectable() // TODO: separate ses, smtp
 export class NodemailerService {

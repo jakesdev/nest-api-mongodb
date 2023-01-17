@@ -1,7 +1,7 @@
 ---
 to: "src/modules/<%= h.fileName(name) %>/<%= h.entityFileName(name) %>.ts"
 unless_exists: true
-skip_if: <%= !blocks.includes('Entity') %>
+skip_if: <%= !blocks.includes('Schema') %>
 ---
 <%
  ClassName = h.ClassName(name);
@@ -14,7 +14,7 @@ skip_if: <%= !blocks.includes('Entity') %>
  EntityName = h.EntityName(name);
  TranslationEntityName = h.TranslationEntityName(name);
  translationEntityName = h.changeCase.camel(TranslationEntityName);
-%>import { Entity, OneToMany } from 'typeorm';
+%>import { Schema, OneToMany } from 'typeorm';
 
 import { AbstractSchema } from '../../common/abstract.entity';
 import { UseDto } from '../../decorators';
@@ -22,7 +22,7 @@ import type { <%= DtoOptionName %> } from './dtos/<%= dtoFileName %>';
 import { <%= DtoName %> } from './dtos/<%= dtoFileName %>';
 import { <%= TranslationEntityName %> } from './<%= translationEntityFileName %>';
 
-@Entity({ name: '<%= TableName %>' })
+@Schema({ name: '<%= TableName %>' })
 @UseDto(<%= DtoName %>)
 export class <%= EntityName %> extends AbstractSchema<<%= DtoName %>, <%= DtoOptionName %>> {
   @OneToMany(

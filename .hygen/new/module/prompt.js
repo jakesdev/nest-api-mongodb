@@ -23,7 +23,7 @@ module.exports = {
           'CreateCommand',
           'CreateDTO',
           'DTO',
-          'Entity',
+          'Schema',
           'GetQuery',
           //'Module',
           'NotFoundException',
@@ -53,7 +53,7 @@ module.exports = {
             value: 'dto',
           },
           {
-            name: 'Entity',
+            name: 'Schema',
             value: 'entity',
           },
           {

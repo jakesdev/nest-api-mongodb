@@ -26,7 +26,7 @@ module.exports = {
       return `Create${this.DtoName(name)}`;
     },
     EntityName(name) {
-      return `${this.ClassName(name)}Entity`;
+      return `${this.ClassName(name)}Schema`;
     },
     TranslationEntityName(name) {
       return `${this.ClassName(name)}TranslationEntity`;

@@ -17,14 +17,14 @@ skip_if: <%= !blocks.includes('TranslationEntity') %>
  TranslationEntityName = h.TranslationEntityName(name);
  TranslationDtoName = h.TranslationDtoName(name);
  translationEntityName = h.changeCase.camel(TranslationEntityName);
-%>import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+%>import { Column, Schema, JoinColumn, ManyToOne } from 'typeorm';
 
 import { AbstractTranslationEntity } from '../../common/abstract.entity';
 import { UseDto } from '../../decorators';
 import { <%= TranslationDtoName %> } from './dtos/<%= translationDtoFileName %>';
 import { <%= EntityName %> } from './<%= entityFileName %>';
 
-@Entity({ name: '<%= var_name %>_translations' })
+@Schema({ name: '<%= var_name %>_translations' })
 @UseDto(<%= TranslationDtoName %>)
 export class <%= TranslationEntityName %> extends AbstractTranslationEntity<<%= TranslationDtoName %>> {
   @Column({ type: 'uuid' })
@@ -37,4 +37,3 @@ export class <%= TranslationEntityName %> extends AbstractTranslationEntity<<%= 
   @JoinColumn({ name: '<%= var_name %>_id' })
   <%= fieldName %>: <%= EntityName %>;
 }
-

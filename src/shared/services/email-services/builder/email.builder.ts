@@ -2,10 +2,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import _ from 'lodash';
 
-import type { EmailTemplateType } from '../../../constants';
-import { EmailTemplate } from '../../../constants';
-import type { IEmailParams } from '../../../interfaces/email-builder.interface';
-import { FORGOT_PASSWORD_OTP_EMAIL } from './templates';
+import type { EmailTemplateType } from '../../../../constants';
+import { EmailTemplate } from '../../../../constants';
+import type { IEmailParams } from '../../../../interfaces/email-builder.interface';
+import { FORGOT_PASSWORD_OTP_EMAIL } from './../templates';
 
 @Injectable()
 export class EmailBuilder {

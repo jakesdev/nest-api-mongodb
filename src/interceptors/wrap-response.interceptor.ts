@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs';
 
-import { PageDto } from '../common/schema';
-import { ResponseDto } from '../common/schema/response.dto';
+import { PageDto } from '../common/dto';
+import { ResponseDto } from '../common/dto/response.dto';
 
 @Injectable()
 export class WrapResponseInterceptor implements NestInterceptor {

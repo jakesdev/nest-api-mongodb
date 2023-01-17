@@ -1,7 +1,7 @@
 import { Order } from '../../constants';
 import { EnumFieldOptional, NumberFieldOptional, StringFieldOptional } from '../../decorators';
 
-export class PageOptionsDto {
+export class PageQueryDto {
     @EnumFieldOptional(() => Order, {
         default: Order.ASC
     })
@@ -20,10 +20,10 @@ export class PageOptionsDto {
         default: 10,
         int: true
     })
-    readonly take: number = 10;
+    readonly limit: number = 10;
 
     get skip(): number {
-        return (this.page - 1) * this.take;
+        return (this.page - 1) * this.limit;
     }
 
     @StringFieldOptional()

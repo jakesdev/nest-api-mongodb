@@ -5,7 +5,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { ApiConfigService } from './services/api-config.service';
 import { AwsS3Service } from './services/aws-s3.service';
 import { AwsSESService } from './services/email-services/aws-ses.service';
-import { EmailBuilder } from './services/email-services/email.builder';
+import { EmailBuilder } from './services/email-services/builder/email.builder';
 import { NodemailerService } from './services/email-services/nodemailer.service';
 import { GeneratorService } from './services/generator.service';
 import { ValidatorService } from './services/validator.service';

@@ -1,8 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 
+import { AbstractSchema } from '../../../common/abstract.schema';
+import { UseDto } from '../../../decorators';
+import { ArticleDto } from '../dto/response/article.dto';
 @Schema()
-export class Articles extends Document {
+@UseDto(ArticleDto)
+export class Article extends AbstractSchema<ArticleDto> {
     @Prop({ type: String })
     title: string;
 
@@ -11,12 +14,6 @@ export class Articles extends Document {
 
     @Prop({ type: String })
     description: string;
-
-    @Prop({ type: Date })
-    createdAt: Date;
-
-    @Prop({ type: Date })
-    updatedAt: Date;
 }
 
-export const articleSchema = SchemaFactory.createForClass(Articles);
+export const ArticleSchema = SchemaFactory.createForClass(Article);

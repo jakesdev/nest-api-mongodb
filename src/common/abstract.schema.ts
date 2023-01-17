@@ -1,9 +1,10 @@
 import { Prop } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 import type { Constructor } from '../types';
-import type { AbstractDto } from './schema/abstract.schema';
+import type { AbstractDto } from './dto/abstract.dto';
 
-export interface IAbstractSchema<DTO extends AbstractDto, O = never> {
+export interface IAbstractSchema<DTO extends AbstractDto, O = never> extends Document {
     id: string;
     createdAt: Date;
     updatedAt: Date;
@@ -12,18 +13,19 @@ export interface IAbstractSchema<DTO extends AbstractDto, O = never> {
 }
 
 export abstract class AbstractSchema<DTO extends AbstractDto = AbstractDto, O = never>
+    extends Document
     implements IAbstractSchema<DTO, O>
 {
     @Prop({ type: () => String })
     id: string;
 
-    @Prop({ type: () => Date })
+    @Prop({ type: Date, default: Date.now() })
     createdAt: Date;
 
-    @Prop({ type: () => Date })
+    @Prop({ type: Date, default: Date.now() })
     updatedAt: Date;
 
-    @Prop({ type: () => Date })
+    @Prop({ type: Date, default: Date.now() })
     deletedAt: Date;
 
     private dtoClass?: Constructor<DTO, [AbstractSchema, O?]>;

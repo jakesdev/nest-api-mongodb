@@ -13,8 +13,8 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import type { EmailTemplateType } from '../../../constants';
 import type { IEmailParams, ITemplateInput } from '../../../interfaces/email-builder.interface';
 import { ApiConfigService } from '../api-config.service';
-import { EmailBuilder } from './email.builder';
-import { EmailRequestBuilder } from './email-request.builder';
+import { EmailBuilder } from './builder/email.builder';
+import { EmailRequestBuilder } from './builder/email-request.builder';
 
 @Injectable()
 export class AwsSESService {

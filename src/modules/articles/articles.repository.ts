@@ -3,16 +3,20 @@ import { InjectModel } from '@nestjs/mongoose';
 import type { ClientSession, Schema as MongooseSchema } from 'mongoose';
 import { Model } from 'mongoose';
 
+import type { PageQueryDto } from '../../common/dto';
 import type { CreateArticleDto } from './dto/request/create-article.dto';
-import { Articles } from './schema';
+import { Article } from './schema';
 
 export class ArticlesRepository {
-    constructor(@InjectModel(Articles.name) private readonly articlesModel: Model<Articles>) {}
+    constructor(@InjectModel(Article.name) private readonly articleModel: Model<Article>) {}
 
     async createArticle(dto: CreateArticleDto, session: ClientSession) {
-        let article = new this.articlesModel({
-            name: dto.name,
-            createdAt: new Date()
+        let article = new this.articleModel({
+            title: dto.title,
+            description: dto.description,
+            slug: dto.title.toLocaleLowerCase(), // TODO: to slug
+            createdAt: new Date(),
+            updatedAt: new Date()
         });
 
         try {
@@ -33,7 +37,7 @@ export class ArticlesRepository {
         let articles;
 
         try {
-            articles = await this.articlesModel
+            articles = await this.articleModel
                 .findOneAndUpdate({ _id: id }, updateData, {
                     new: true
                 })
@@ -50,57 +54,29 @@ export class ArticlesRepository {
         return articles;
     }
 
-    // async getArticless(query: GetQueryDto) {
-    //     let from = query.from || 0;
-    //     from = Number(from);
+    async getArticles(query: PageQueryDto): Promise<[Article[], number]> {
+        let articles: Article[];
 
-    //     let limit = query.limit || 0;
-    //     limit = Number(limit);
+        try {
+            const itemCount = await this.articleModel.count();
+            articles = await this.articleModel
+                .find()
+                .skip(query.skip)
+                .limit(query.limit)
+                .sort({ createdAt: query.order })
+                .exec();
 
-    //     let Articless: Articles[];
-
-    //     try {
-    //         Articless = await (limit === 0
-    //             ? this.ArticlesModel.find()
-    //                 .populate('client')
-    //                 .populate('user', 'name email')
-    //                 .skip(from)
-    //                 .sort({ createdAt: -1 })
-    //                 .exec()
-    //             : this.ArticlesModel.find()
-    //                 .populate('client')
-    //                 .populate('user', 'name email')
-    //                 .skip(from)
-    //                 .limit(limit)
-    //                 .sort({ createdAt: -1 })
-    //                 .exec());
-
-    //         let response;
-
-    //         response =
-    //             Articless.length > 0
-    //                 ? {
-    //                     ok: true,
-    //                     data: Articless,
-    //                     message: 'Get Articless Ok!'
-    //                 }
-    //                 : {
-    //                     ok: true,
-    //                     data: [],
-    //                     message: 'No hay Articless'
-    //                 };
-
-    //         return response;
-    //     } catch (error) {
-    //         throw new InternalServerErrorException(error);
-    //     }
-    // }
+            return [articles, itemCount];
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+    }
 
     async getArticlesById(id: MongooseSchema.Types.ObjectId) {
         let articles;
 
         try {
-            articles = await this.articlesModel.findById(id).exec();
+            articles = await this.articleModel.findById(id).exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }

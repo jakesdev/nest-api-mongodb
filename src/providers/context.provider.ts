@@ -1,13 +1,11 @@
 import { getValue, setValue } from 'express-ctx';
 
-import type { LanguageCode } from '../constants';
+import type { Users } from '../modules/users/schema';
 
 export class ContextProvider {
     private static readonly nameSpace = 'request';
 
     private static readonly authUserKey = 'user_key';
-
-    private static readonly languageKey = 'language_key';
 
     private static get<T>(key: string): T | undefined {
         return getValue<T>(ContextProvider.getKeyWithNamespace(key));
@@ -22,19 +20,11 @@ export class ContextProvider {
         return `${ContextProvider.nameSpace}.${key}`;
     }
 
-    // static setAuthUser(user: User): void {
-    //     ContextProvider.set(ContextProvider.authUserKey, user);
-    // }
-
-    static setLanguage(language: string): void {
-        ContextProvider.set(ContextProvider.languageKey, language);
+    static setAuthUser(user: Users): void {
+        ContextProvider.set(ContextProvider.authUserKey, user);
     }
 
-    static getLanguage(): LanguageCode | undefined {
-        return ContextProvider.get<LanguageCode>(ContextProvider.languageKey);
+    static getAuthUser(): Users | undefined {
+        return ContextProvider.get<Users>(ContextProvider.authUserKey);
     }
-
-    // static getAuthUser(): User | undefined {
-    //     return ContextProvider.get<User>(ContextProvider.authUserKey);
-    // }
 }

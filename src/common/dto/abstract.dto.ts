@@ -3,7 +3,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import type { AbstractSchema } from '../abstract.schema';
 
 export class AbstractDto {
-    // TODO: implement snowflake id
     @ApiProperty({ example: '000000x0-00x0-0000-000x-xx0xx00x000x' })
     id: string;
 
@@ -16,11 +15,11 @@ export class AbstractDto {
     @ApiProperty()
     deletedAt: Date;
 
-    constructor(entity: AbstractSchema, options?: { excludeFields?: boolean }) {
+    constructor(schema: AbstractSchema, options?: { excludeFields?: boolean }) {
         if (!options?.excludeFields) {
-            this.id = entity.id;
-            this.createdAt = entity.createdAt;
-            this.updatedAt = entity.updatedAt;
+            this.id = schema._id;
+            this.createdAt = schema.createdAt;
+            this.updatedAt = schema.updatedAt;
         }
     }
 }

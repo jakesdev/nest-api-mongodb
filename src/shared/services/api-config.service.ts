@@ -49,10 +49,6 @@ export class ApiConfigService {
         return this.getString('NODE_ENV');
     }
 
-    get fallbackLanguage(): string {
-        return this.getString('FALLBACK_LANGUAGE');
-    }
-
     getMongooseOptions(): MongooseModuleOptions {
         const options: MongooseModuleOptions = {
             uri: this.getString('MONGODB_DEV'),

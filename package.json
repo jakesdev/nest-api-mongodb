@@ -12,7 +12,6 @@
         "start:dev": "ts-node src/main.ts",
         "watch": "ts-node-dev src/main.ts",
         "start": "node dist/main.js",
-
         "debug:dev": "cross-env TS_NODE_CACHE=false ts-node-dev --inspect --ignore '/^src/.*\\.spec\\.ts$/' src/main.ts",
         "webpack": "webpack --config webpack.config.js --progress",
         "new": "hygen new",
@@ -34,6 +33,7 @@
         "@aws-sdk/client-ses": "^3.218.0",
         "@aws-sdk/s3-request-presigner": "^3.218.0",
         "@nestjs/axios": "^1.0.0",
+        "@nestjs/class-transformer": "^0.4.0",
         "@nestjs/common": "^9.2.1",
         "@nestjs/config": "^2.2.0",
         "@nestjs/core": "^9.2.1",
