@@ -9,6 +9,4 @@ export * from './public-route.decorator';
 export * from './swagger.schema';
 export * from './transform.decorators';
 export * from './translate.decorator';
-export * from './use-dto.decorator';
 export * from './validator.decorators';
-export * from './virtual-column.decorator';

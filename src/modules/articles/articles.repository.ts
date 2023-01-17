@@ -2,6 +2,7 @@ import { ConflictException, InternalServerErrorException, NotFoundException } fr
 import { InjectModel } from '@nestjs/mongoose';
 import type { ClientSession, Schema as MongooseSchema } from 'mongoose';
 import { Model } from 'mongoose';
+import slugify from 'slugify';
 
 import type { PageQueryDto } from '../../common/dto';
 import type { CreateArticleDto } from './dto/request/create-article.dto';
@@ -14,9 +15,7 @@ export class ArticlesRepository {
         let article = new this.articleModel({
             title: dto.title,
             description: dto.description,
-            slug: dto.title.toLocaleLowerCase(), // TODO: to slug
-            createdAt: new Date(),
-            updatedAt: new Date()
+            slug: slugify(dto.title, { lower: true, strict: true }) // TODO: to slug
         });
 
         try {
@@ -82,7 +81,7 @@ export class ArticlesRepository {
         }
 
         if (!articles) {
-            throw new NotFoundException('The Articles with this id does not exist');
+            throw new NotFoundException();
         }
 
         return articles;

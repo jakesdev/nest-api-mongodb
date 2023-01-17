@@ -1,18 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import { AbstractSchema } from '../../../common/abstract.schema';
-import { UseDto } from '../../../decorators';
-import { ArticleDto } from '../dto/response/article.dto';
 @Schema()
-@UseDto(ArticleDto)
-export class Article extends AbstractSchema<ArticleDto> {
-    @Prop({ type: String })
+export class Article extends AbstractSchema {
+    @Prop()
     title: string;
 
-    @Prop({ type: String })
+    @Prop({ index: { unique: true, dropDups: true } })
     slug: string;
 
-    @Prop({ type: String })
+    @Prop()
     description: string;
 }
 
