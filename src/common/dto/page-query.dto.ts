@@ -1,3 +1,5 @@
+import type { SortOrder } from 'mongoose';
+
 import { Order } from '../../constants';
 import { EnumFieldOptional, NumberFieldOptional, StringFieldOptional } from '../../decorators';
 
@@ -5,7 +7,11 @@ export class PageQueryDto {
     @EnumFieldOptional(() => Order, {
         default: Order.ASC
     })
-    readonly order: Order = Order.ASC;
+    readonly createdAt: Order = Order.ASC;
+
+    get order(): SortOrder {
+        return this.createdAt === Order.DESC ? -1 : 1;
+    }
 
     @NumberFieldOptional({
         minimum: 1,

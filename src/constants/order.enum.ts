@@ -1,6 +1,6 @@
 export enum Order {
-    ASC = 1,
-    DESC = -1
+    ASC = 'ASC',
+    DESC = 'DESC'
 }
 
 export type OrderType = keyof typeof Order;
